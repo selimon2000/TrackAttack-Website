@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Track</title>
+</head>
+
+<script>
+    async function includeHTML() {
+        const includes = document.querySelectorAll('[data-include]');
+        for (const element of includes) {
+            const fileName = element.getAttribute('data-include');
+            const response = await fetch(fileName);
+            const content = await response.text();
+            element.innerHTML = content;
+
+            // Manually execute JavaScript code after including content
+            const scripts = element.querySelectorAll('script');
+            for (const script of scripts) {
+                eval(script.innerText);
+            }
+        }
+    }
+    window.addEventListener('DOMContentLoaded', includeHTML);
+
+    
+</script>
+
+
+<body>
+    <header data-include="header.html"></header>
+
+    <!-- <main data-include="main.html"></main> -->
+    <main data-include="main_api.html"></main>
+
+    <footer data-include="footer.html"> </footer>
+
+</body>
+
+</html>
